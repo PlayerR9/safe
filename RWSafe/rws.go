@@ -3,7 +3,7 @@ package RWSafe
 import (
 	"sync"
 
-	uc "github.com/PlayerR9/MyGoLib/Units/common"
+	uc "github.com/PlayerR9/lib_units/common"
 )
 
 // Safe is a rw mutex protected variable.

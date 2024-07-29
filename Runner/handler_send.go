@@ -3,7 +3,7 @@ package Runner
 import (
 	"sync"
 
-	uc "github.com/PlayerR9/MyGoLib/Units/common"
+	uc "github.com/PlayerR9/lib_units/common"
 )
 
 // HandlerSend is a handler that, unlike HandlerSimple, whenever

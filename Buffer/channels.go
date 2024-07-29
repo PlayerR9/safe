@@ -3,7 +3,7 @@ package Buffer
 import (
 	"sync"
 
-	us "github.com/PlayerR9/MyGoLib/Units/slice"
+	us "github.com/PlayerR9/lib_units/slices"
 	rws "github.com/PlayerR9/safe/RWSafe"
 	ur "github.com/PlayerR9/safe/Runner"
 )

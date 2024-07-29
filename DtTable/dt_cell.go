@@ -3,11 +3,11 @@ package DtTable
 import (
 	"github.com/gdamore/tcell"
 
-	uc "github.com/PlayerR9/MyGoLib/Units/common"
+	lup "github.com/PlayerR9/lib_units/pair"
 )
 
 // DtCell represents a cell in a data table.
-type DtCell uc.Pair[rune, tcell.Style]
+type DtCell lup.Pair[rune, tcell.Style]
 
 // NewDtCell creates a new DtCell with the given content and style.
 //

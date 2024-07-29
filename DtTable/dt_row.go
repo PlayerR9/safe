@@ -4,7 +4,7 @@ import (
 	"errors"
 	"sync"
 
-	uc "github.com/PlayerR9/MyGoLib/Units/common"
+	uc "github.com/PlayerR9/lib_units/common"
 )
 
 // DtRow represents a row in a data table.

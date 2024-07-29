@@ -3,7 +3,7 @@ package Runner
 import (
 	"sync"
 
-	uc "github.com/PlayerR9/MyGoLib/Units/common"
+	uc "github.com/PlayerR9/lib_units/common"
 	rws "github.com/PlayerR9/safe/RWSafe"
 )
 

@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	uc "github.com/PlayerR9/MyGoLib/Units/common"
+	uc "github.com/PlayerR9/lib_units/common"
 )
 
 // HandlerSimple is a struct that represents a Go routine handler.
