@@ -16,8 +16,11 @@ type SafeMap[T comparable, U any] struct {
 	mu sync.RWMutex
 }
 
-// Copy implements the Copier interface.
-func (sm *SafeMap[T, U]) Copy() uc.Copier {
+// Copy is a method that returns a copy of the SafeMap.
+//
+// Returns:
+//   - *SafeMap[T, U]: A copy of the SafeMap.
+func (sm *SafeMap[T, U]) Copy() *SafeMap[T, U] {
 	sm.mu.RLock()
 	defer sm.mu.RUnlock()
 

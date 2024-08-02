@@ -17,7 +17,7 @@ type HandlerSimple struct {
 	errChan chan error
 
 	// routine is the Go routine that is run by the handler.
-	routine uc.MainFunc
+	routine func() error
 
 	// ctx is the context of the Go routine.
 	ctx context.Context
@@ -114,7 +114,7 @@ func (h *HandlerSimple) run() {
 //   - The Go routine is not started automatically.
 //   - In routine, use *uc.ErrNoError to exit the Go routine as nil is used to signal
 //     that the function has finished successfully but the Go routine is still running.
-func NewHandlerSimple(routine uc.MainFunc) *HandlerSimple {
+func NewHandlerSimple(routine func() error) *HandlerSimple {
 	if routine == nil {
 		return nil
 	}

@@ -3,7 +3,6 @@ package Runner
 import (
 	"sync"
 
-	uc "github.com/PlayerR9/lib_units/common"
 	rws "github.com/PlayerR9/safe/RWSafe"
 )
 
@@ -35,7 +34,7 @@ func NewBatch() *Batch {
 // Behaviors:
 //   - It ignores nil Go routines.
 //   - It replaces the Go routine if the identifier already exists in the batch.
-func (b *Batch) Add(identifier string, routine uc.MainFunc) {
+func (b *Batch) Add(identifier string, routine func() error) {
 	if routine == nil {
 		return
 	}

@@ -2,8 +2,6 @@ package RWSafe
 
 import (
 	"sync"
-
-	uc "github.com/PlayerR9/lib_units/common"
 )
 
 // Subject is the subject that observers observe.
@@ -18,10 +16,13 @@ type Subject[T any] struct {
 	mu sync.RWMutex
 }
 
-// Copy implements the Copier interface.
+// Copy is a method that returns a copy of the subject.
+//
+// Returns:
+//   - *Subject[T]: A copy of the subject.
 //
 // However, the obsevers are not copied.
-func (s *Subject[T]) Copy() uc.Copier {
+func (s *Subject[T]) Copy() *Subject[T] {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 

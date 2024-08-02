@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	uc "github.com/PlayerR9/lib_units/common"
+	lustr "github.com/PlayerR9/lib_units/strings"
 	rws "github.com/PlayerR9/safe/RWSafe"
 )
 
@@ -167,7 +168,7 @@ func (queue *SafeQueue[T]) GoString() string {
 
 	values := make([]string, 0, size)
 	for node := queue.front; node != nil; node = node.next {
-		values = append(values, uc.StringOf(node.value))
+		values = append(values, lustr.GoStringOf(node.value))
 	}
 
 	var builder strings.Builder
@@ -196,7 +197,7 @@ func (queue *SafeQueue[T]) Slice() []T {
 }
 
 // Copy implements the Queuer interface.
-func (queue *SafeQueue[T]) Copy() uc.Copier {
+func (queue *SafeQueue[T]) Copy() *SafeQueue[T] {
 	queue.mu.RLock()
 	defer queue.mu.RUnlock()
 

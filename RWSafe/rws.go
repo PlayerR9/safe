@@ -2,8 +2,6 @@ package RWSafe
 
 import (
 	"sync"
-
-	uc "github.com/PlayerR9/lib_units/common"
 )
 
 // Safe is a rw mutex protected variable.
@@ -15,8 +13,11 @@ type Safe[T any] struct {
 	mu sync.RWMutex
 }
 
-// Copy implements the Copier interface.
-func (s *Safe[T]) Copy() uc.Copier {
+// Copy is a method that returns a copy of the safe variable.
+//
+// Returns:
+//   - *Safe[T]: A copy of the safe variable.
+func (s *Safe[T]) Copy() *Safe[T] {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 

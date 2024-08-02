@@ -1,5 +1,7 @@
 github.com/PlayerR9/lib_units v0.1.1 h1:TsDMuiJzQ5p5ujql0GGpz3aDV0SuZdugAQlCZxs1fC4=
 github.com/PlayerR9/lib_units v0.1.1/go.mod h1:PtwiOBR5S2qAy5lD+Nz5ma7wXEYm8EWpVIP21Lm0o+Q=
+github.com/PlayerR9/lib_units v0.1.6 h1:nGV8cUY9K+AHpnGJwITNG8q8Ekg9DovhFij8JOxJXaE=
+github.com/PlayerR9/lib_units v0.1.6/go.mod h1:PtwiOBR5S2qAy5lD+Nz5ma7wXEYm8EWpVIP21Lm0o+Q=
 github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203 h1:XBBHcIb256gUJtLmY22n99HaZTz+r2Z51xUPi01m3wg=
 github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203/go.mod h1:E1jcSv8FaEny+OP/5k9UxZVw9YFWGj7eI4KR/iOBqCg=
 github.com/gdamore/encoding v1.0.0/go.mod h1:alR0ol34c49FCSBLjhosxzcPHQbf2trDkoo5dl+VrEg=

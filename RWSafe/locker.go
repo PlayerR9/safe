@@ -1,13 +1,19 @@
 package RWSafe
 
 import (
+	"fmt"
 	"sync"
-
-	uc "github.com/PlayerR9/lib_units/common"
 )
 
+// Conditioner is an interface that represents a condition.
+type Conditioner interface {
+	~int
+
+	fmt.Stringer
+}
+
 // Locker is a thread-Subject locker that allows multiple goroutines to wait for a condition.
-type Locker[T uc.Enumer] struct {
+type Locker[T Conditioner] struct {
 	// cond is the condition variable.
 	cond *sync.Cond
 
@@ -30,7 +36,7 @@ type Locker[T uc.Enumer] struct {
 //
 // Behaviors:
 //   - All the predicates are initialized to true.
-func NewLocker[T uc.Enumer]() *Locker[T] {
+func NewLocker[T Conditioner]() *Locker[T] {
 	l := &Locker[T]{
 		cond:     sync.NewCond(&sync.Mutex{}),
 		subjects: make(map[T]*Subject[bool]),

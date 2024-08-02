@@ -17,7 +17,7 @@ type HandlerSend[T any] struct {
 	errChan chan error
 
 	// routine is the Go routine that is run by the handler.
-	routine uc.ErrorIfFunc[T]
+	routine func(T) error
 
 	// sendChan is the channel to send messages to the Go routine.
 	sendChan chan T
@@ -116,7 +116,7 @@ func (h *HandlerSend[T]) run() {
 //   - In routine, use *uc.ErrNoError to exit the Go routine as nil is used to signal
 //     that the function has finished successfully but the Go routine is still running.
 //   - If routine is nil, this function returns nil.
-func NewHandlerSend[T any](routine uc.ErrorIfFunc[T]) *HandlerSend[T] {
+func NewHandlerSend[T any](routine func(T) error) *HandlerSend[T] {
 	if routine == nil {
 		return nil
 	}
