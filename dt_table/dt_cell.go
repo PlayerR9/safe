@@ -3,7 +3,7 @@ package dt_table
 import (
 	"github.com/gdamore/tcell"
 
-	gcc "github.com/PlayerR9/go-commons/CustomData/commmon"
+	gcc "github.com/PlayerR9/go-commons/CustomData/common"
 )
 
 // DtCell represents a cell in a data table.

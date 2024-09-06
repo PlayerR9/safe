@@ -1,5 +1,5 @@
-github.com/PlayerR9/go-commons v0.1.12 h1:4j5PmBi/w21VELitRNK3zugLpKYdQ7PBHqO4bSB5xKY=
-github.com/PlayerR9/go-commons v0.1.12/go.mod h1:qfwfgzPehl/aerLpPpPvesuq71Eb//OQP/MJjPJ2ELI=
+github.com/PlayerR9/go-commons v0.1.13 h1:1KhniNEdeI9VWhq2LTwRmU/fNZUWUinZxZYMQdEEsfs=
+github.com/PlayerR9/go-commons v0.1.13/go.mod h1:qfwfgzPehl/aerLpPpPvesuq71Eb//OQP/MJjPJ2ELI=
 github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203 h1:XBBHcIb256gUJtLmY22n99HaZTz+r2Z51xUPi01m3wg=
 github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203/go.mod h1:E1jcSv8FaEny+OP/5k9UxZVw9YFWGj7eI4KR/iOBqCg=
 github.com/gdamore/encoding v1.0.0/go.mod h1:alR0ol34c49FCSBLjhosxzcPHQbf2trDkoo5dl+VrEg=
