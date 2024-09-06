@@ -3,11 +3,11 @@ package dt_table
 import (
 	"github.com/gdamore/tcell"
 
-	lup "github.com/PlayerR9/safe/util/CustomData/pair"
+	gcc "github.com/PlayerR9/go-commons/CustomData/commmon"
 )
 
 // DtCell represents a cell in a data table.
-type DtCell lup.Pair[rune, tcell.Style]
+type DtCell gcc.Pair[rune, tcell.Style]
 
 // NewDtCell creates a new DtCell with the given content and style.
 //
