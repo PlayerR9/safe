@@ -1,4 +1,4 @@
-package Buffer
+package buffer
 
 // Receiver is the interface that wraps the Receive method.
 type Receiver[T any] interface {

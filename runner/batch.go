@@ -1,9 +1,9 @@
-package Runner
+package runner
 
 import (
 	"sync"
 
-	rws "github.com/PlayerR9/safe/RWSafe"
+	rws "github.com/PlayerR9/safe/rw_safe"
 )
 
 // Batch is a struct that represents a batch of Go routines.

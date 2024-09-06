@@ -1,4 +1,4 @@
-package Buffer
+package buffer
 
 import (
 	"strconv"
@@ -7,7 +7,7 @@ import (
 
 	gcers "github.com/PlayerR9/go-commons/errors"
 	gcstr "github.com/PlayerR9/go-commons/strings"
-	rws "github.com/PlayerR9/safe/RWSafe"
+	rws "github.com/PlayerR9/safe/rw_safe"
 )
 
 // queue_safe_node represents a node in a linked queue.

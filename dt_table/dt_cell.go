@@ -1,4 +1,4 @@
-package DtTable
+package dt_table
 
 import (
 	"github.com/gdamore/tcell"

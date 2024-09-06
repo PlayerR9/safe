@@ -1,11 +1,11 @@
-package Keyboard
+package keyboard
 
 import (
 	"context"
 	_ "image/png"
 	"sync"
 
-	sfb "github.com/PlayerR9/safe/Buffer"
+	sfb "github.com/PlayerR9/safe/buffer"
 	"github.com/eiannone/keyboard"
 )
 

@@ -1,4 +1,4 @@
-package Buffer
+package buffer
 
 import (
 	"sync"

@@ -1,4 +1,4 @@
-package Runner
+package runner
 
 // Runner is an interface that defines the behavior of a type that can be started,
 // stopped, and waited for.

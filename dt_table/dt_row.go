@@ -1,4 +1,4 @@
-package DtTable
+package dt_table
 
 import (
 	"errors"

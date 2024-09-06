@@ -1,11 +1,11 @@
-package Buffer
+package buffer
 
 import (
 	"sync"
 
 	gcslc "github.com/PlayerR9/go-commons/slices"
-	rws "github.com/PlayerR9/safe/RWSafe"
-	ur "github.com/PlayerR9/safe/Runner"
+	ur "github.com/PlayerR9/safe/runner"
+	rws "github.com/PlayerR9/safe/rw_safe"
 )
 
 // DiscardAnyMessage is a function that discards all messages from a receiver.

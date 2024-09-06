@@ -1,4 +1,4 @@
-package RWSafe
+package rw_safe
 
 import (
 	"sync"

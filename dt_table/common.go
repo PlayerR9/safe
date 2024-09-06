@@ -1,4 +1,4 @@
-package DtTable
+package dt_table
 
 type WriteOnlyDTer interface {
 	// GetCellAt returns the cell at the given coordinates.

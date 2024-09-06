@@ -1,4 +1,4 @@
-package DtTable
+package dt_table
 
 import (
 	"errors"
@@ -6,7 +6,7 @@ import (
 
 	gcers "github.com/PlayerR9/go-commons/errors"
 	gcint "github.com/PlayerR9/go-commons/ints"
-	rws "github.com/PlayerR9/safe/RWSafe"
+	rws "github.com/PlayerR9/safe/rw_safe"
 )
 
 // DtTable represents a table of cells.

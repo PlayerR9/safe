@@ -1,4 +1,4 @@
-package Runner
+package runner
 
 // ErrAlreadyRunning is an error type that represents an error where
 // a process is already running.

@@ -1,9 +1,9 @@
-package Buffer
+package buffer
 
 import (
 	"sync"
 
-	rws "github.com/PlayerR9/safe/RWSafe"
+	rws "github.com/PlayerR9/safe/rw_safe"
 )
 
 // BufferCondition is an enumeration of the possible conditions of the Buffer.

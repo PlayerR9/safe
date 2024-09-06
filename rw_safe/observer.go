@@ -1,4 +1,4 @@
-package RWSafe
+package rw_safe
 
 // Observer is the interface that wraps the Notify method.
 type Observer[T any] interface {
