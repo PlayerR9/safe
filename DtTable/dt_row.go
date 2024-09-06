@@ -4,7 +4,8 @@ import (
 	"errors"
 	"sync"
 
-	uc "github.com/PlayerR9/lib_units/common"
+	gcers "github.com/PlayerR9/go-commons/errors"
+	gcint "github.com/PlayerR9/go-commons/ints"
 )
 
 // DtRow represents a row in a data table.
@@ -31,7 +32,7 @@ type DtRow struct {
 //     is less than 0.
 func NewDtRow(width int) (*DtRow, error) {
 	if width < 0 {
-		return nil, uc.NewErrInvalidParameter(
+		return nil, gcers.NewErrInvalidParameter(
 			"width",
 			errors.New("value must be non-negative"),
 		)
@@ -68,9 +69,9 @@ func (r *DtRow) SetCell(cell *DtCell, x int) error {
 	defer r.mu.Unlock()
 
 	if x < 0 || x >= r.width {
-		return uc.NewErrInvalidParameter(
+		return gcers.NewErrInvalidParameter(
 			"x",
-			uc.NewErrOutOfBounds(x, 0, r.width),
+			gcint.NewErrOutOfBounds(x, 0, r.width),
 		)
 	}
 
@@ -93,9 +94,9 @@ func (r *DtRow) SetCells(cells []*DtCell, from int) error {
 	defer r.mu.Unlock()
 
 	if from < 0 || from+len(cells) > r.width {
-		return uc.NewErrInvalidParameter(
+		return gcers.NewErrInvalidParameter(
 			"from",
-			uc.NewErrOutOfBounds(from, 0, r.width-len(cells)),
+			gcint.NewErrOutOfBounds(from, 0, r.width-len(cells)),
 		)
 	}
 
@@ -150,7 +151,7 @@ func (r *DtRow) Resize(newWidth int) error {
 	defer r.mu.Unlock()
 
 	if newWidth < 0 {
-		return uc.NewErrInvalidParameter(
+		return gcers.NewErrInvalidParameter(
 			"newWidth",
 			errors.New("value must be greater than 0"),
 		)

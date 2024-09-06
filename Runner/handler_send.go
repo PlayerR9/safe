@@ -1,10 +1,22 @@
 package Runner
 
 import (
+	"errors"
 	"sync"
 
-	uc "github.com/PlayerR9/lib_units/common"
+	uc "github.com/PlayerR9/go-commons/errors"
 )
+
+var (
+	// NoError is the error that is returned when there is no error. Readers must return
+	// this error as is an not wrap it as callers are expected to check for this error
+	// with ==.
+	NoError error
+)
+
+func init() {
+	NoError = errors.New("no error")
+}
 
 // HandlerSend is a handler that, unlike HandlerSimple, whenever
 // an error occurs, it is sent to the error channel instead of
@@ -92,11 +104,8 @@ func (h *HandlerSend[T]) run() {
 		err := h.routine(msg)
 		if err == nil {
 			continue
-		}
-
-		ok := uc.Is[*uc.ErrNoError](err)
-		if ok {
-			return
+		} else if err == NoError {
+			break
 		}
 
 		h.errChan <- err

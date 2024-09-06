@@ -5,8 +5,8 @@ import (
 	"strings"
 	"sync"
 
-	uc "github.com/PlayerR9/lib_units/common"
-	lustr "github.com/PlayerR9/lib_units/strings"
+	gcers "github.com/PlayerR9/go-commons/errors"
+	gcstr "github.com/PlayerR9/go-commons/strings"
 	rws "github.com/PlayerR9/safe/RWSafe"
 )
 
@@ -130,20 +130,6 @@ func (queue *SafeQueue[T]) Size() int {
 	return queue.size.Get()
 }
 
-// Iterator implements the Queuer interface.
-func (queue *SafeQueue[T]) Iterator() uc.Iterater[T] {
-	queue.mu.RLock()
-	defer queue.mu.RUnlock()
-
-	var builder uc.Builder[T]
-
-	for node := queue.front; node != nil; node = node.next {
-		builder.Add(node.value)
-	}
-
-	return builder.Build()
-}
-
 // Clear implements the Queuer interface.
 func (queue *SafeQueue[T]) Clear() {
 	queue.mu.Lock()
@@ -168,7 +154,7 @@ func (queue *SafeQueue[T]) GoString() string {
 
 	values := make([]string, 0, size)
 	for node := queue.front; node != nil; node = node.next {
-		values = append(values, lustr.GoStringOf(node.value))
+		values = append(values, gcstr.GoStringOf(node.value))
 	}
 
 	var builder strings.Builder
@@ -286,7 +272,7 @@ func (o *IsEmptyObserver) Notify(size int) {
 //   - error: An error of type *uc.ErrInvalidParameter if action is nil.
 func NewIsEmptyObserver(action func(int)) (*IsEmptyObserver, error) {
 	if action == nil {
-		return nil, uc.NewErrNilParameter("action")
+		return nil, gcers.NewErrNilParameter("action")
 	}
 
 	return &IsEmptyObserver{

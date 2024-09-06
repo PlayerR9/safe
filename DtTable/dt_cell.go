@@ -3,7 +3,7 @@ package DtTable
 import (
 	"github.com/gdamore/tcell"
 
-	lup "github.com/PlayerR9/lib_units/pair"
+	lup "github.com/PlayerR9/safe/util/CustomData/pair"
 )
 
 // DtCell represents a cell in a data table.

@@ -1,10 +1,8 @@
 package RWSafe
 
 import (
+	"iter"
 	"sync"
-
-	uc "github.com/PlayerR9/lib_units/common"
-	lup "github.com/PlayerR9/lib_units/pair"
 )
 
 // SafeMap is a thread-safe map.
@@ -34,18 +32,23 @@ func (sm *SafeMap[T, U]) Copy() *SafeMap[T, U] {
 	}
 }
 
-// Iterator implements the Iterable interface.
-func (sm *SafeMap[T, U]) Iterator() uc.Iterater[lup.Pair[T, U]] {
+// Entry is a method that returns an iterator over the entries in the SafeMap.
+//
+// Returns:
+//   - iter.Seq2[T, U]: An iterator over the entries in the SafeMap.
+func (sm *SafeMap[T, U]) Entry() iter.Seq2[T, U] {
 	sm.mu.RLock()
 	defer sm.mu.RUnlock()
 
-	entries := make([]lup.Pair[T, U], 0, len(sm.m))
-
-	for key, value := range sm.m {
-		entries = append(entries, lup.NewPair(key, value))
+	fn := func(yield func(T, U) bool) {
+		for key, value := range sm.m {
+			if !yield(key, value) {
+				return
+			}
+		}
 	}
 
-	return uc.NewSimpleIterator(entries)
+	return fn
 }
 
 // NewSafeMap creates a new SafeMap.

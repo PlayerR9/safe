@@ -4,7 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	uc "github.com/PlayerR9/lib_units/common"
+	gcers "github.com/PlayerR9/go-commons/errors"
+	gcint "github.com/PlayerR9/go-commons/ints"
 	rws "github.com/PlayerR9/safe/RWSafe"
 )
 
@@ -67,14 +68,14 @@ func (dt *DtTable) SetCellAt(x, y int, cell *DtCell) error {
 	width := dt.width.Get()
 
 	if y < 0 || y >= height {
-		return uc.NewErrInvalidParameter(
+		return gcers.NewErrInvalidParameter(
 			"y",
-			uc.NewErrOutOfBounds(y, 0, height),
+			gcint.NewErrOutOfBounds(y, 0, height),
 		)
 	} else if x < 0 || x >= width {
-		return uc.NewErrInvalidParameter(
+		return gcers.NewErrInvalidParameter(
 			"x",
-			uc.NewErrOutOfBounds(x, 0, width),
+			gcint.NewErrOutOfBounds(x, 0, width),
 		)
 	}
 
@@ -98,12 +99,12 @@ func (dt *DtTable) SetCellAt(x, y int, cell *DtCell) error {
 //     width is less than 0.
 func NewDtTable(height, width int) (*DtTable, error) {
 	if height < 0 {
-		return nil, uc.NewErrInvalidParameter(
+		return nil, gcers.NewErrInvalidParameter(
 			"height",
 			errors.New("value must be non-negative"),
 		)
 	} else if width < 0 {
-		return nil, uc.NewErrInvalidParameter(
+		return nil, gcers.NewErrInvalidParameter(
 			"width",
 			errors.New("value must be non-negative"),
 		)
@@ -219,7 +220,7 @@ func TransformIntoTable(highlights []DtCell) (*DtTable, error) {
 //   - error: An error of type *uc.ErrInvalidParameter if newHeight is less than 0.
 func (dt *DtTable) ResizeHeight(newHeight int) error {
 	if newHeight < 0 {
-		return uc.NewErrInvalidParameter(
+		return gcers.NewErrInvalidParameter(
 			"newHeight",
 			errors.New("value must be non-negative"),
 		)
@@ -260,7 +261,7 @@ func (dt *DtTable) ResizeHeight(newHeight int) error {
 //   - error: An error of type *uc.ErrInvalidParameter if newWidth is less than 0.
 func (dt *DtTable) ResizeWidth(newWidth int) error {
 	if newWidth < 0 {
-		return uc.NewErrInvalidParameter(
+		return gcers.NewErrInvalidParameter(
 			"newWidth",
 			errors.New("value must be non-negative"),
 		)

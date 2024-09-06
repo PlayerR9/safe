@@ -3,7 +3,7 @@ package Buffer
 import (
 	"sync"
 
-	us "github.com/PlayerR9/lib_units/slices"
+	gcslc "github.com/PlayerR9/go-commons/slices"
 	rws "github.com/PlayerR9/safe/RWSafe"
 	ur "github.com/PlayerR9/safe/Runner"
 )
@@ -56,7 +56,7 @@ type Redirect[T any] struct {
 //     cascading manner.
 //   - If no senders are provided, the handler will discard all messages from the receiver.
 func NewRedirect[T any](receiver Receiver[T], senders ...ur.SenderRunner[T]) *Redirect[T] {
-	senders = us.SliceFilter(senders, func(sender ur.SenderRunner[T]) bool {
+	senders = gcslc.SliceFilter(senders, func(sender ur.SenderRunner[T]) bool {
 		return sender != nil
 	})
 
@@ -170,7 +170,7 @@ type ChannelThrough[T any] struct {
 //     Thus, if all receivers are closed, the handler will close the sender in a
 //     cascading manner.
 func NewChannelThrough[T any](sender ur.SenderRunner[T], receivers ...Receiver[T]) *ChannelThrough[T] {
-	receivers = us.SliceFilter(receivers, func(receiver Receiver[T]) bool {
+	receivers = gcslc.SliceFilter(receivers, func(receiver Receiver[T]) bool {
 		return receiver != nil
 	})
 
