@@ -2,7 +2,7 @@ module github.com/PlayerR9/safe
 
 go 1.23.1
 
-require github.com/PlayerR9/go-commons v0.1.13
+require github.com/PlayerR9/go-commons v0.1.14
 
 require (
 	github.com/gdamore/encoding v1.0.1 // indirect
