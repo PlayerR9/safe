@@ -6,7 +6,10 @@ type Observer[T any] interface {
 	//
 	// Parameters:
 	//   - change: The change that occurred.
-	Notify(change T)
+	//
+	// Returns:
+	// 	- bool: True if the receiver is not nil, false otherwise.
+	Notify(change T) bool
 }
 
 // ReactiveObserver is a type that acts as a simple observer that calls a function
@@ -17,8 +20,14 @@ type ReactiveObserver[T any] struct {
 }
 
 // Notify implements the Observer interface.
-func (r *ReactiveObserver[T]) Notify(change T) {
+func (r *ReactiveObserver[T]) Notify(change T) bool {
+	if r == nil {
+		return false
+	}
+
 	r.event(change)
+
+	return true
 }
 
 // NewReactiveObserver creates a new ReactiveObserver.
@@ -27,7 +36,7 @@ func (r *ReactiveObserver[T]) Notify(change T) {
 //   - event: The event to call when a change occurs.
 //
 // Returns:
-//   - *ReactiveObserver[T]: A new ReactiveObserver.
+//   - *ReactiveObserver[T]: A new ReactiveObserver. Never returns nil.
 func NewReactiveObserver[T any](event func(T)) *ReactiveObserver[T] {
 	return &ReactiveObserver[T]{
 		event: event,

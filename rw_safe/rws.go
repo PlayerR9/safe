@@ -16,16 +16,23 @@ type Safe[T any] struct {
 // Copy is a method that returns a copy of the safe variable.
 //
 // Returns:
-//   - *Safe[T]: A copy of the safe variable.
+//   - *Safe[T]: A copy of the safe variable. Never returns nil.
+//
+// If receiver is nil, then a new variable will be created instead initialized
+// with the value as its zero value.
 func (s *Safe[T]) Copy() *Safe[T] {
+	if s == nil {
+		return &Safe[T]{
+			value: *new(T),
+		}
+	}
+
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
-	sCopy := &Safe[T]{
+	return &Safe[T]{
 		value: s.value,
 	}
-
-	return sCopy
 }
 
 // NewSafe creates a new safe variable.
@@ -34,7 +41,7 @@ func (s *Safe[T]) Copy() *Safe[T] {
 //   - value: The value of the safe variable.
 //
 // Returns:
-//   - *Safe[T]: A new safe variable.
+//   - *Safe[T]: A new safe variable. Never returns nil.
 func NewSafe[T any](value T) *Safe[T] {
 	s := &Safe[T]{
 		value: value,
@@ -47,17 +54,32 @@ func NewSafe[T any](value T) *Safe[T] {
 //
 // Parameters:
 //   - value: The value to set the safe variable to.
-func (s *Safe[T]) Set(value T) {
+//
+// Returns:
+//   - bool: True if the receiver is not nil. False otherwise.
+func (s *Safe[T]) Set(value T) bool {
+	if s == nil {
+		return false
+	}
+
 	s.mu.Lock()
 	s.value = value
 	s.mu.Unlock()
+
+	return true
 }
 
 // Get gets the value of the safe variable.
 //
 // Returns:
 //   - T: The value of the safe variable.
+//
+// If the receiver is nil, then the zero value is returned instead.
 func (s *Safe[T]) Get() T {
+	if s == nil {
+		return *new(T)
+	}
+
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
@@ -68,7 +90,13 @@ func (s *Safe[T]) Get() T {
 //
 // Parameters:
 //   - f: The function to modify the value of the safe variable.
+//
+// If 'f' or the receiver are nil, then nothing is done.
 func (s *Safe[T]) Modifyvalue(f func(T) T) {
+	if s == nil || f == nil {
+		return
+	}
+
 	s.mu.RLock()
 	curr := s.value
 	s.mu.RUnlock()
@@ -86,10 +114,15 @@ func (s *Safe[T]) Modifyvalue(f func(T) T) {
 // read-only manner.
 //
 // Parameters:
-//
 //   - f: A function that takes a value of type T as a parameter and
 //     returns nothing.
+//
+// If 'f' or receiver are nil, then nothing is done.
 func (s *Safe[T]) DoRead(f func(T)) {
+	if s == nil || f == nil {
+		return
+	}
+
 	s.mu.RLock()
 	value := s.value
 	s.mu.RUnlock()

@@ -2,7 +2,7 @@ module github.com/PlayerR9/safe
 
 go 1.23.1
 
-require github.com/PlayerR9/go-commons v0.1.14
+require github.com/PlayerR9/go-commons v0.1.15
 
 require (
 	github.com/gdamore/encoding v1.0.1 // indirect
@@ -16,5 +16,5 @@ require (
 require (
 	github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203
 	github.com/gdamore/tcell v1.4.0
-	golang.org/x/exp v0.0.0-20240904232852-e7e105dedf7e // indirect
+	golang.org/x/exp v0.0.0-20240909161429-701f63a606c0 // indirect
 )
