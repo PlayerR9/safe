@@ -16,15 +16,13 @@ type Safe[T any] struct {
 // Copy is a method that returns a copy of the safe variable.
 //
 // Returns:
-//   - *Safe[T]: A copy of the safe variable. Never returns nil.
+//   - *Safe[T]: A copy of the safe variable. Nil only if receiver is nil.
 //
 // If receiver is nil, then a new variable will be created instead initialized
 // with the value as its zero value.
 func (s *Safe[T]) Copy() *Safe[T] {
 	if s == nil {
-		return &Safe[T]{
-			value: *new(T),
-		}
+		return nil
 	}
 
 	s.mu.RLock()
