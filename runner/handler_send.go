@@ -37,7 +37,7 @@ type HandlerSend[T any] struct {
 
 // Start implements the Runner interface.
 func (h *HandlerSend[T]) Start() {
-	if h.sendChan != nil {
+	if h == nil || h.sendChan != nil {
 		return
 	}
 
@@ -51,7 +51,7 @@ func (h *HandlerSend[T]) Start() {
 
 // Close implements the Runner interface.
 func (h *HandlerSend[T]) Close() {
-	if h.sendChan == nil {
+	if h == nil || h.sendChan == nil {
 		return
 	}
 
@@ -65,12 +65,12 @@ func (h *HandlerSend[T]) Close() {
 
 // IsClosed implements the Runner interface.
 func (h *HandlerSend[T]) IsClosed() bool {
-	return h.errChan == nil
+	return h == nil || h.errChan == nil
 }
 
 // ReceiveErr implements the Runner interface.
 func (h *HandlerSend[T]) ReceiveErr() (error, bool) {
-	if h.errChan == nil {
+	if h == nil || h.errChan == nil {
 		return nil, false
 	}
 
@@ -119,22 +119,21 @@ func (h *HandlerSend[T]) run() {
 //
 // Returns:
 //   - *HandlerSend: A pointer to the HandlerSend that handles the result of the Go routine.
+//   - bool: True if the HandlerSend was created successfully, false otherwise.
 //
 // Behaviors:
 //   - The Go routine is not started automatically.
 //   - In routine, use *uc.ErrNoError to exit the Go routine as nil is used to signal
 //     that the function has finished successfully but the Go routine is still running.
 //   - If routine is nil, this function returns nil.
-func NewHandlerSend[T any](routine func(T) error) *HandlerSend[T] {
+func NewHandlerSend[T any](routine func(T) error) (*HandlerSend[T], bool) {
 	if routine == nil {
-		return nil
+		return nil, false
 	}
 
-	hs := &HandlerSend[T]{
+	return &HandlerSend[T]{
 		routine: routine,
-	}
-
-	return hs
+	}, true
 }
 
 // Send is a method of HandlerSend that sends a message to the Go routine.
@@ -146,7 +145,7 @@ func NewHandlerSend[T any](routine func(T) error) *HandlerSend[T] {
 // Returns:
 //   - bool: True if the message is sent, false otherwise.
 func (h *HandlerSend[T]) Send(msg T) bool {
-	if h.sendChan == nil {
+	if h == nil || h.sendChan == nil {
 		return false
 	}
 
@@ -157,6 +156,10 @@ func (h *HandlerSend[T]) Send(msg T) bool {
 
 // clean is a private method of HandlerSend that cleans up the handler.
 func (h *HandlerSend[T]) clean() {
+	if h == nil {
+		return
+	}
+
 	if h.errChan != nil {
 		close(h.errChan)
 		h.errChan = nil

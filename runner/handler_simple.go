@@ -28,6 +28,10 @@ type HandlerSimple struct {
 
 // Start implements the Runner interface.
 func (h *HandlerSimple) Start() {
+	if h == nil {
+		return
+	}
+
 	h.errChan = make(chan error)
 
 	h.ctx, h.cancel = context.WithCancel(context.Background())
@@ -40,6 +44,10 @@ func (h *HandlerSimple) Start() {
 
 // Close implements the Runner interface.
 func (h *HandlerSimple) Close() {
+	if h == nil {
+		return
+	}
+
 	select {
 	case <-h.ctx.Done():
 		// Do nothing as the context is already done.
@@ -52,12 +60,12 @@ func (h *HandlerSimple) Close() {
 
 // IsClosed implements the Runner interface.
 func (h *HandlerSimple) IsClosed() bool {
-	return h.errChan == nil
+	return h == nil || h.errChan == nil
 }
 
 // ReceiveErr implements the Runner interface.
 func (h *HandlerSimple) ReceiveErr() (error, bool) {
-	if h.errChan == nil {
+	if h == nil || h.errChan == nil {
 		return nil, false
 	}
 
@@ -108,26 +116,29 @@ func (h *HandlerSimple) run() {
 //
 // Returns:
 //   - *HandlerSimple: A pointer to the HandlerSimple that handles the result of the Go routine.
+//   - bool: True if the HandlerSimple was created successfully, false otherwise.
 //
 // Behaviors:
 //   - If routine is nil, this function returns nil.
 //   - The Go routine is not started automatically.
 //   - In routine, use *uc.ErrNoError to exit the Go routine as nil is used to signal
 //     that the function has finished successfully but the Go routine is still running.
-func NewHandlerSimple(routine func() error) *HandlerSimple {
+func NewHandlerSimple(routine func() error) (*HandlerSimple, bool) {
 	if routine == nil {
-		return nil
+		return nil, false
 	}
 
-	hs := &HandlerSimple{
+	return &HandlerSimple{
 		routine: routine,
-	}
-
-	return hs
+	}, true
 }
 
 // clean is a private method of HandlerSimple that cleans up the handler.
 func (h *HandlerSimple) clean() {
+	if h == nil {
+		return
+	}
+
 	if h.errChan != nil {
 		close(h.errChan)
 		h.errChan = nil

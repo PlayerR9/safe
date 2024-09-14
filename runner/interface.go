@@ -9,7 +9,10 @@ type Runner interface {
 	// Close closes the runner. If it is not running, nothing happens.
 	Close()
 
-	// IsClosed returns true if the runner is closed, false otherwise.
+	// IsClosed checks if the runner is closed.
+	//
+	// Returns:
+	//   - bool: True if the runner is closed, false otherwise.
 	IsClosed() bool
 }
 

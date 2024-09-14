@@ -1,10 +1,20 @@
 package runner
 
 import (
+	"errors"
 	"sync"
 
 	rws "github.com/PlayerR9/safe/rw_safe"
 )
+
+var (
+	// AlreadyRunning is the error that is returned when the process is already running.
+	AlreadyRunning error
+)
+
+func init() {
+	AlreadyRunning = errors.New("the process is already running")
+}
 
 // Batch is a struct that represents a batch of Go routines.
 type Batch struct {
@@ -16,13 +26,11 @@ type Batch struct {
 // NewBatch creates a new batch of Go routines.
 //
 // Returns:
-//   - *Batch: The new batch.
+//   - *Batch: The new batch. Never returns nil.
 func NewBatch() *Batch {
-	b := &Batch{
+	return &Batch{
 		handlers: make(map[string]*HandlerSimple),
 	}
-
-	return b
 }
 
 // Add is a method of Batch that adds a Go routine to the batch.
@@ -35,21 +43,27 @@ func NewBatch() *Batch {
 //   - It ignores nil Go routines.
 //   - It replaces the Go routine if the identifier already exists in the batch.
 func (b *Batch) Add(identifier string, routine func() error) {
-	if routine == nil {
+	if b == nil || routine == nil {
 		return
 	}
 
-	h := NewHandlerSimple(routine)
+	h, _ := NewHandlerSimple(routine)
 
 	b.handlers[identifier] = h
 }
 
 // Clear is a method of Batch that clears the batch.
 func (b *Batch) Clear() {
-	for k := range b.handlers {
-		b.handlers[k] = nil
+	if b == nil {
+		return
+	}
 
-		delete(b.handlers, k)
+	if len(b.handlers) > 0 {
+		for k := range b.handlers {
+			b.handlers[k] = nil
+
+			delete(b.handlers, k)
+		}
 	}
 
 	b.handlers = make(map[string]*HandlerSimple)
@@ -60,7 +74,7 @@ func (b *Batch) Clear() {
 // Parameters:
 //   - batch: A slice of pointers to the GRHandler instances that handle the Go routines.
 func (b *Batch) StartAll() {
-	if len(b.handlers) == 0 {
+	if b == nil || len(b.handlers) == 0 {
 		return
 	}
 
@@ -78,7 +92,7 @@ func (b *Batch) StartAll() {
 // Returns:
 //   - map[string]error: A map of the error statuses of the Go routines.
 func (b *Batch) WaitAll() map[string]error {
-	if len(b.handlers) == 0 {
+	if b == nil || len(b.handlers) == 0 {
 		return nil
 	}
 
@@ -92,25 +106,23 @@ func (b *Batch) WaitAll() map[string]error {
 
 	wg.Add(len(b.handlers))
 
-	runFunc := func(k string, h *HandlerSimple) {
-		defer wg.Done()
-
-		for {
-			err, ok := h.ReceiveErr()
-			if !ok {
-				return
-			}
-
-			errMap.Set(k, err)
-
-			if err != nil {
-				return
-			}
-		}
-	}
-
 	for k, h := range b.handlers {
-		go runFunc(k, h)
+		go func(k string, h *HandlerSimple) {
+			defer wg.Done()
+
+			for {
+				err, ok := h.ReceiveErr()
+				if !ok {
+					return
+				}
+
+				errMap.Set(k, err)
+
+				if err != nil {
+					return
+				}
+			}
+		}(k, h)
 	}
 
 	wg.Wait()
