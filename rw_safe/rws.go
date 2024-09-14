@@ -95,15 +95,10 @@ func (s *Safe[T]) Modifyvalue(f func(T) T) {
 		return
 	}
 
-	s.mu.RLock()
-	curr := s.value
-	s.mu.RUnlock()
-
-	new := f(curr)
-
 	s.mu.Lock()
-	s.value = new
-	s.mu.Unlock()
+	defer s.mu.Unlock()
+
+	s.value = f(s.value)
 }
 
 // DoRead is a method of the safe variable type. It is used to perform a read
