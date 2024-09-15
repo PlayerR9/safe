@@ -4,7 +4,7 @@ import (
 	"sync"
 
 	gcslc "github.com/PlayerR9/go-commons/slices"
-	ur "github.com/PlayerR9/safe/runner"
+	olru "github.com/PlayerR9/safe/OLD/runner"
 	rws "github.com/PlayerR9/safe/rw_safe"
 )
 
@@ -34,7 +34,7 @@ type Redirect[T any] struct {
 	receiver Receiver[T]
 
 	// senders is a slice of senders of messages.
-	senders []ur.SenderRunner[T]
+	senders []olru.SenderRunner[T]
 
 	// isClosed is a flag that indicates if the handler is closed.
 	isClosed *rws.Safe[bool]
@@ -55,8 +55,8 @@ type Redirect[T any] struct {
 //     Thus, if the receiver is closed, the handler will close all senders in a
 //     cascading manner.
 //   - If no senders are provided, the handler will discard all messages from the receiver.
-func NewRedirect[T any](receiver Receiver[T], senders ...ur.SenderRunner[T]) *Redirect[T] {
-	senders = gcslc.SliceFilter(senders, func(sender ur.SenderRunner[T]) bool {
+func NewRedirect[T any](receiver Receiver[T], senders ...olru.SenderRunner[T]) *Redirect[T] {
+	senders = gcslc.SliceFilter(senders, func(sender olru.SenderRunner[T]) bool {
 		return sender != nil
 	})
 
@@ -116,7 +116,7 @@ func (r *Redirect[T]) Run() {
 		wg.Add(len(r.senders))
 
 		for _, sender := range r.senders {
-			go func(sender ur.SenderRunner[T]) {
+			go func(sender olru.SenderRunner[T]) {
 				defer wg.Done()
 
 				sender.Start()
@@ -144,7 +144,7 @@ type ChannelThrough[T any] struct {
 	receivers []Receiver[T]
 
 	// sender is the sender of messages.
-	sender ur.SenderRunner[T]
+	sender olru.SenderRunner[T]
 
 	// buffer is the buffer that stores the messages.
 	buffer *Buffer[T]
@@ -169,7 +169,7 @@ type ChannelThrough[T any] struct {
 //   - Because it closes automatically, there is no Close() method.
 //     Thus, if all receivers are closed, the handler will close the sender in a
 //     cascading manner.
-func NewChannelThrough[T any](sender ur.SenderRunner[T], receivers ...Receiver[T]) *ChannelThrough[T] {
+func NewChannelThrough[T any](sender olru.SenderRunner[T], receivers ...Receiver[T]) *ChannelThrough[T] {
 	receivers = gcslc.SliceFilter(receivers, func(receiver Receiver[T]) bool {
 		return receiver != nil
 	})

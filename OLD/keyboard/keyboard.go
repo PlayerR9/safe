@@ -5,7 +5,7 @@ import (
 	_ "image/png"
 	"sync"
 
-	sfb "github.com/PlayerR9/safe/buffer"
+	sfb "github.com/PlayerR9/safe/OLD/buffer"
 	"github.com/eiannone/keyboard"
 )
 

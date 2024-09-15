@@ -3,7 +3,7 @@ package buffer
 import (
 	"sync"
 
-	rws "github.com/PlayerR9/safe/rw_safe"
+	olrws "github.com/PlayerR9/safe/OLD/rw_safe"
 )
 
 // BufferCondition is an enumeration of the possible conditions of the Buffer.
@@ -42,7 +42,7 @@ type Buffer[T any] struct {
 	wg sync.WaitGroup
 
 	// locker is a pointer to the RWSafe that synchronizes the Buffer.
-	locker *rws.Locker[BufferCondition]
+	locker *olrws.Locker[BufferCondition]
 }
 
 // Start implements the Runner interface.
@@ -51,7 +51,7 @@ func (b *Buffer[T]) Start() {
 		return
 	}
 
-	b.locker = rws.NewLocker[BufferCondition]()
+	b.locker = olrws.NewLocker[BufferCondition]()
 	b.locker.SetSubject(IsEmpty, true, true)
 	b.locker.SetSubject(IsRunning, true, true)
 

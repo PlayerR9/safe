@@ -2,7 +2,6 @@ package c_string
 
 import (
 	gcers "github.com/PlayerR9/go-commons/errors"
-	gcint "github.com/PlayerR9/go-commons/ints"
 	"github.com/gdamore/tcell"
 )
 
@@ -121,7 +120,7 @@ func ApplyMany[T CStringer](p *Printer, elems []T) error {
 	for i, elem := range elems {
 		err := elem.CString(newTraversor(p.formatter, p.buff))
 		if err != nil {
-			return gcint.NewErrAt(i+1, "CStringer element", err)
+			return gcers.NewErrAt(i+1, "CStringer element", err)
 		}
 	}
 
@@ -182,7 +181,7 @@ func ApplyFuncMany[T any](p *Printer, f CStringFunc[T], elems []T) error {
 	for i, elem := range elems {
 		err := f(newTraversor(p.formatter, p.buff), elem)
 		if err != nil {
-			return gcint.NewErrAt(i+1, "element", err)
+			return gcers.NewErrAt(i+1, "element", err)
 		}
 	}
 

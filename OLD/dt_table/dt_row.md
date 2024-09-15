@@ -5,7 +5,6 @@ import (
 	"sync"
 
 	gcers "github.com/PlayerR9/go-commons/errors"
-	gcint "github.com/PlayerR9/go-commons/ints"
 )
 
 // DtRow represents a row in a data table.
@@ -71,7 +70,7 @@ func (r *DtRow) SetCell(cell *DtCell, x int) error {
 	if x < 0 || x >= r.width {
 		return gcers.NewErrInvalidParameter(
 			"x",
-			gcint.NewErrOutOfBounds(x, 0, r.width),
+			gcers.NewErrOutOfBounds(x, 0, r.width),
 		)
 	}
 
@@ -96,7 +95,7 @@ func (r *DtRow) SetCells(cells []*DtCell, from int) error {
 	if from < 0 || from+len(cells) > r.width {
 		return gcers.NewErrInvalidParameter(
 			"from",
-			gcint.NewErrOutOfBounds(from, 0, r.width-len(cells)),
+			gcers.NewErrOutOfBounds(from, 0, r.width-len(cells)),
 		)
 	}
 

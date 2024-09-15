@@ -3,8 +3,6 @@ package runner
 import (
 	"context"
 	"sync"
-
-	gcers "github.com/PlayerR9/go-commons/errors"
 )
 
 // HandlerSimple is a struct that represents a Go routine handler.
@@ -89,7 +87,7 @@ func (h *HandlerSimple) run() {
 		r := recover()
 
 		if r != nil {
-			h.errChan <- gcers.NewErrPanic(r)
+			h.errChan <- NewErrPanic(r)
 		}
 
 		h.clean()

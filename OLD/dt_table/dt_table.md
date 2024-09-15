@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	gcers "github.com/PlayerR9/go-commons/errors"
-	gcint "github.com/PlayerR9/go-commons/ints"
 	rws "github.com/PlayerR9/safe/rw_safe"
 )
 
@@ -70,12 +69,12 @@ func (dt *DtTable) SetCellAt(x, y int, cell *DtCell) error {
 	if y < 0 || y >= height {
 		return gcers.NewErrInvalidParameter(
 			"y",
-			gcint.NewErrOutOfBounds(y, 0, height),
+			gcers.NewErrOutOfBounds(y, 0, height),
 		)
 	} else if x < 0 || x >= width {
 		return gcers.NewErrInvalidParameter(
 			"x",
-			gcint.NewErrOutOfBounds(x, 0, width),
+			gcers.NewErrOutOfBounds(x, 0, width),
 		)
 	}
 

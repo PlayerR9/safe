@@ -4,7 +4,7 @@ import (
 	"errors"
 	"sync"
 
-	uc "github.com/PlayerR9/go-commons/errors"
+	sru "github.com/PlayerR9/safe/runner"
 )
 
 var (
@@ -94,7 +94,7 @@ func (h *HandlerSend[T]) run() {
 		r := recover()
 
 		if r != nil {
-			h.errChan <- uc.NewErrPanic(r)
+			h.errChan <- sru.NewErrPanic(r)
 		}
 
 		h.clean()

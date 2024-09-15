@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	gcint "github.com/PlayerR9/go-commons/ints"
+	gcers "github.com/PlayerR9/go-commons/errors"
 	"github.com/gdamore/tcell"
 )
 
@@ -60,7 +60,7 @@ func ApplyTravFuncMany[T any](trav *Traversor, f CStringFunc[T], elems []T) erro
 	for i, elem := range elems {
 		err := f(trav, elem)
 		if err != nil {
-			return gcint.NewErrAt(i+1, "element", err)
+			return gcers.NewErrAt(i+1, "element", err)
 		}
 	}
 
@@ -166,7 +166,7 @@ func (trav *Traversor) writeString(str string, style tcell.Style) error {
 
 	n := checkString(str)
 	if n != -1 {
-		return gcint.NewErrAt(n, "rune", errors.New("not proper UTF-8 encoding"))
+		return gcers.NewErrAt(n, "rune", errors.New("not proper UTF-8 encoding"))
 	}
 
 	trav.source.writeString(str, style)
@@ -196,7 +196,7 @@ func (trav *Traversor) writeLine(line string, style tcell.Style) error {
 	} else {
 		n := checkString(line)
 		if n != -1 {
-			return gcint.NewErrAt(n, "rune", errors.New("not proper UTF-8 encoding"))
+			return gcers.NewErrAt(n, "rune", errors.New("not proper UTF-8 encoding"))
 		}
 
 		trav.source.writeString(line, style)
@@ -257,7 +257,7 @@ func (trav *Traversor) AppendStrings(strs []string, style tcell.Style) error {
 	for i, str := range strs {
 		err := trav.writeString(str, style)
 		if err != nil {
-			return gcint.NewErrAt(i, "string", err)
+			return gcers.NewErrAt(i, "string", err)
 		}
 	}
 
@@ -352,7 +352,7 @@ func (trav *Traversor) AddLines(lines []string, style tcell.Style) error {
 	for i, line := range lines {
 		err := trav.writeLine(line, style)
 		if err != nil {
-			return gcint.NewErrAt(i, "line", err)
+			return gcers.NewErrAt(i, "line", err)
 		}
 	}
 

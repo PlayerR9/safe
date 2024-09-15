@@ -7,7 +7,7 @@ import (
 
 	gcers "github.com/PlayerR9/go-commons/errors"
 	gcstr "github.com/PlayerR9/go-commons/strings"
-	rws "github.com/PlayerR9/safe/rw_safe"
+	olrws "github.com/PlayerR9/safe/OLD/rw_safe"
 )
 
 // queue_safe_node represents a node in a linked queue.
@@ -31,7 +31,7 @@ type SafeQueue[T any] struct {
 	mu sync.RWMutex
 
 	// size is the size that observers observe.
-	size *rws.Subject[int]
+	size *olrws.Subject[int]
 }
 
 // Enqueue implements the Queuer interface.
@@ -237,7 +237,7 @@ func (queue *SafeQueue[T]) IsFull() bool {
 //   - *SafeQueue[T]: A pointer to the newly created SafeQueue. Never returns nil.
 func NewSafeQueue[T any]() *SafeQueue[T] {
 	return &SafeQueue[T]{
-		size: rws.NewSubject(0),
+		size: olrws.NewSubject(0),
 	}
 }
 

@@ -3,7 +3,7 @@ package c_string
 import (
 	"fmt"
 
-	gcint "github.com/PlayerR9/go-commons/ints"
+	gcers "github.com/PlayerR9/go-commons/errors"
 	"github.com/gdamore/tcell"
 )
 
@@ -132,7 +132,7 @@ func ApplyFormMany[T CStringer](form FormatConfig, trav *Traversor, elems []T) e
 	for i, elem := range elems {
 		err := elem.CString(newTraversor(form, trav.source))
 		if err != nil {
-			return gcint.NewErrAt(i+1, "CStringer element", err)
+			return gcers.NewErrAt(i+1, "CStringer element", err)
 		}
 	}
 
