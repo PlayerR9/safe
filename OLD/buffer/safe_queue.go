@@ -1,12 +1,12 @@
 package buffer
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 	"sync"
 
-	gcers "github.com/PlayerR9/go-commons/errors"
-	gcstr "github.com/PlayerR9/go-commons/strings"
+	gcers "github.com/PlayerR9/errors"
 	olrws "github.com/PlayerR9/safe/OLD/rw_safe"
 )
 
@@ -154,7 +154,7 @@ func (queue *SafeQueue[T]) GoString() string {
 
 	values := make([]string, 0, size)
 	for node := queue.front; node != nil; node = node.next {
-		values = append(values, gcstr.GoStringOf(node.value))
+		values = append(values, fmt.Sprintf("%v", node.value))
 	}
 
 	var builder strings.Builder

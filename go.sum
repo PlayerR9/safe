@@ -1,5 +1,7 @@
-github.com/PlayerR9/go-commons v0.1.21 h1:YltpS6Uf/Qy5ArPCTcyRYLDqYuZWppfp/NRzgt6979A=
-github.com/PlayerR9/go-commons v0.1.21/go.mod h1:Abgs7CiggY1rhwwBPhv8G60HevRR1WMSVQVYfhIPgms=
+github.com/PlayerR9/errors v0.1.0 h1:EFbOeiweUdF4L4hNmQ446od0ET+PKqLWyO67KDWizCk=
+github.com/PlayerR9/errors v0.1.0/go.mod h1:vM52FOVFTyAAbyUWeP9CJVNHWRy8YAHyYic58wy6U2Y=
+github.com/dustin/go-humanize v1.0.1 h1:GzkhY7T5VNhEkwH0PVJgjz+fX1rhBrR7pRT3mDkpeCY=
+github.com/dustin/go-humanize v1.0.1/go.mod h1:Mu1zIs6XwVuF/gI1OepvI0qD18qycQx+mFykh5fBlto=
 github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203 h1:XBBHcIb256gUJtLmY22n99HaZTz+r2Z51xUPi01m3wg=
 github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203/go.mod h1:E1jcSv8FaEny+OP/5k9UxZVw9YFWGj7eI4KR/iOBqCg=
 github.com/gdamore/encoding v1.0.0/go.mod h1:alR0ol34c49FCSBLjhosxzcPHQbf2trDkoo5dl+VrEg=
