@@ -3,6 +3,8 @@ package rw_safe
 import (
 	"iter"
 	"sync"
+
+	gcers "github.com/PlayerR9/go-errors"
 )
 
 // SafeMap is a thread-safe map.
@@ -41,8 +43,12 @@ func (sm *SafeMap[T, U]) Copy() *SafeMap[T, U] {
 // Entry is a method that returns an iterator over the entries in the SafeMap.
 //
 // Returns:
-//   - iter.Seq2[T, U]: An iterator over the entries in the SafeMap.
+//   - iter.Seq2[T, U]: An iterator over the entries in the SafeMap. Never returns nil.
 func (sm *SafeMap[T, U]) Entry() iter.Seq2[T, U] {
+	if sm == nil {
+		return func(yield func(T, U) bool) {}
+	}
+
 	sm.mu.RLock()
 	defer sm.mu.RUnlock()
 
@@ -60,7 +66,7 @@ func (sm *SafeMap[T, U]) Entry() iter.Seq2[T, U] {
 // NewSafeMap creates a new SafeMap.
 //
 // Returns:
-//   - *SafeMap[T, U]: A new SafeMap.
+//   - *SafeMap[T, U]: A new SafeMap. Never returns nil.
 func NewSafeMap[T comparable, U any]() *SafeMap[T, U] {
 	return &SafeMap[T, U]{
 		m: make(map[T]U),
@@ -76,6 +82,10 @@ func NewSafeMap[T comparable, U any]() *SafeMap[T, U] {
 //   - U: The value associated with the key.
 //   - bool: A boolean indicating if the key exists in the map.
 func (sm *SafeMap[T, U]) Get(key T) (U, bool) {
+	if sm == nil {
+		return gcers.ZeroOf[U](), false
+	}
+
 	sm.mu.RLock()
 	defer sm.mu.RUnlock()
 
@@ -83,12 +93,16 @@ func (sm *SafeMap[T, U]) Get(key T) (U, bool) {
 	return val, ok
 }
 
-// Set sets a value in the map.
+// Set sets a value in the map. Does nothing if the receiver is nil.
 //
 // Parameters:
 //   - key: The key to set the value.
 //   - val: The value to set.
 func (sm *SafeMap[T, U]) Set(key T, val U) {
+	if sm == nil {
+		return
+	}
+
 	sm.mu.Lock()
 	defer sm.mu.Unlock()
 

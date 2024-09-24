@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	gcers "github.com/PlayerR9/errors"
+	gcers "github.com/PlayerR9/go-errors"
 	"github.com/dustin/go-humanize"
 	"github.com/gdamore/tcell"
 )
