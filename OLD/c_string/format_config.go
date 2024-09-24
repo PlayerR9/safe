@@ -3,7 +3,7 @@ package c_string
 import (
 	"fmt"
 
-	gcers "github.com/PlayerR9/errors"
+	gcers "github.com/PlayerR9/go-errors"
 	"github.com/dustin/go-humanize"
 	"github.com/gdamore/tcell"
 )

@@ -18,17 +18,23 @@ type SafeMap[T comparable, U any] struct {
 //
 // Returns:
 //   - *SafeMap[T, U]: A copy of the SafeMap.
+//
+// Returns nil iff the receiver is nil.
 func (sm *SafeMap[T, U]) Copy() *SafeMap[T, U] {
+	if sm == nil {
+		return nil
+	}
+
 	sm.mu.RLock()
 	defer sm.mu.RUnlock()
 
-	newMap := make(map[T]U, len(sm.m))
+	new_map := make(map[T]U, len(sm.m))
 	for key, value := range sm.m {
-		newMap[key] = value
+		new_map[key] = value
 	}
 
 	return &SafeMap[T, U]{
-		m: newMap,
+		m: new_map,
 	}
 }
 

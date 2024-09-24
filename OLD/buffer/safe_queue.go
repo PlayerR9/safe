@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 
-	gcers "github.com/PlayerR9/errors"
+	gcers "github.com/PlayerR9/go-errors"
 	olrws "github.com/PlayerR9/safe/OLD/rw_safe"
 )
 
