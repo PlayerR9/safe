@@ -12,7 +12,7 @@ require (
 )
 
 require (
-	github.com/PlayerR9/go-errors v0.1.2
+	github.com/PlayerR9/go-errors v0.1.3
 	github.com/dustin/go-humanize v1.0.1
 	github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203
 	github.com/gdamore/tcell v1.4.0
